@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
 
+function List({ list }) {
+  console.log("Running ");
+  const sort = useMemo(() => [...list].sort(), [list]);
+  return <div>sort : {sort.join(", ")}</div>;
+}
+
+import { useMemo } from "react";
 function App() {
-  const [count, setCount] = useState(0)
+  const [numbers] = useState([10, 202, 10]);
+  console.log(numbers);
+
+  const number = useMemo(
+    () => numbers.reduce((acc, num) => acc + num, 0),
+    [numbers]
+  );
+
+  const [names] = useState(["Surya", "Varun", "Jack"]);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div>names : {names.join(", ")}</div>
+      <List list={names} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
